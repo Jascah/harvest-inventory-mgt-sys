@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Suppliers</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>Harvest Inventory Management System</h1>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="inventory.html">Inventory</a></li>
+            <li><a href="add-harvest.html">Add Harvest</a></li>
+            <li><a href="storage.html">Storage Management</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="alerts.html">Alerts</a></li>
+            <li><a href="suppliers.html">Suppliers</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <h2>Suppliers</h2>
+        
+        <!-- Add New Supplier Form -->
+        <h3>Add New Supplier</h3>
+        <form id="supplierForm">
+            <input type="text" placeholder="Supplier Name" id="supplierName" required>
+            <input type="text" placeholder="Contact Information" id="supplierContact" required>
+            <input type="text" placeholder="Address" id="supplierAddress" required>
+            <button type="submit">Add Supplier</button>
+        </form>
+        
+        <!-- Supplier List -->
+        <h3>Supplier List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact Information</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="supplierList">
+                <!-- Supplier items will be populated here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
