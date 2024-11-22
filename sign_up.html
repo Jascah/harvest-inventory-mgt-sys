@@ -1,3 +1,18 @@
+<?php
+    session_start();
+    ?>
+
+    <!-- Display messages -->
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="error-message"><?= $_SESSION['error']; ?></div>
+        <?php unset($_SESSION['error']); ?>
+    <?php elseif (isset($_SESSION['success'])): ?>
+        <div class="success-message"><?= $_SESSION['success']; ?></div>
+        <?php unset($_SESSION['success']); ?>
+    <?php endif; 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,21 +173,15 @@
     <div class="overlay"></div>
     <div class="container">
         <h1>Harvest Inventory Management - Sign Up</h1>
-        <form>
+        <form action="register.php" method="POST">
             <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required>
+                <label for="Name">Name</label>
+                <input type="text" id="Name" name="Name" required>
             </div>
 
-            <div class="form-group">
-                <label for="secondName">Second Name</label>
-                <input type="text" id="secondName" name="secondName" required>
-            </div>
+            
 
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
+
 
             <div class="form-group">
                 <label for="email">Email</label>
@@ -184,8 +193,9 @@
                 <input type="password" id="password" name="password" required>
                 <span class="toggle-password" onclick="togglePassword()">👁️</span>
             </div>
+            
 
-            <button type="button" class="btn-suggest" onclick="suggestPassword()">Suggest Strong Password</button>
+            
 
             <label for="terms" class="terms">
                 <input type="checkbox" id="terms" name="terms" required>
@@ -220,3 +230,5 @@
     </script>
 </body>
 </html>
+
+
