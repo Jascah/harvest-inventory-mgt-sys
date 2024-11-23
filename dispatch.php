@@ -3,12 +3,14 @@ include 'dbconnection.php';
 include 'connection.php';
 header('Content-Type: application/json');
 
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check the action type
     $action = isset($_POST['action']) ? $_POST['action'] : 'dispatch';
 
     if ($action === 'dispatch') {
-        // Handle dispatch operation
         $harvest_type = $_POST['harvest_type'];
         $silo_location = $_POST['silo_location'];
         $quantity = intval($_POST['quantity']);
@@ -41,83 +43,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode(["status" => "error", "message" => "Not enough quantity in storage."]);
         }
         exit;
-    } elseif ($action === 'generate_report') {
-        // Handle dispatch report generation
-        $query = "SELECT harvest_type, silo_location, quantity, recipient, DATE_FORMAT(dispatch_date, '%Y-%m-%d %H:%i:%s') AS dispatch_date FROM dispatch_log";
+    } elseif ($action === 'view_dispatch') {
+        // Fetch dispatch log data
+        $dispatch_query = "
+            SELECT 
+                dl.harvest_type, 
+                dl.silo_location, 
+                dl.quantity AS dispatched_quantity, 
+                dl.recipient, 
+                dl.dispatch_date
+            FROM dispatch_log dl
+            ORDER BY dl.dispatch_date DESC";
 
-        $result = mysqli_query($con, $query);
+        $dispatch_result = mysqli_query($con, $dispatch_query);
 
-        if (!$result) {
-            echo json_encode(["status" => "error", "message" => "Failed to fetch dispatch log data."]);
+        if (!$dispatch_result) {
+            echo json_encode(["status" => "error", "message" => mysqli_error($con)]);
             exit;
         }
 
-        // Create CSV file
-        $filename = "dispatch_report_" . date('Y-m-d') . ".csv";
-        $file = fopen($filename, 'w');
-
-        // Add CSV headers
-        fputcsv($file, ['Harvest Type', 'Silo Location', 'Quantity', 'Recipient', 'Dispatch Date']);
-
-        // Add data rows
-        while ($row = mysqli_fetch_assoc($result)) {
-            $row['dispatch_date']=(string)$row['dispatch_date'];
-            fputcsv($file, $row);
-        }
-
-        fclose($file);
-
-        // Download the file
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/csv');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filename));
-        readfile($filename);
-
-        unlink($filename); // Clean up temporary file
-        exit();
-    }
-    elseif ($action === 'view_dispatch') {
-        $query = "SELECT harvest_type, silo_location, quantity, recipient, dispatch_date FROM dispatch_log ORDER BY dispatch_date DESC";
-        $result = mysqli_query($con, $query);
-
-        if (!$result) {
-            echo json_encode(["status" => "error", "message" => "Failed to fetch dispatch records."]);
-            exit;
-        }
-
-        // Generate HTML table
-        $table = '<table class="styled-table">
+        // Generate HTML table for dispatch log
+        $dispatch_table = '<table class="styled-table">
                     <thead>
                         <tr>
                             <th>Harvest Type</th>
                             <th>Silo Location</th>
-                            <th>Quantity</th>
+                            <th>Dispatched Quantity</th>
                             <th>Recipient</th>
                             <th>Dispatch Date</th>
                         </tr>
                     </thead>
                     <tbody>';
-        while ($row = mysqli_fetch_assoc($result)) {
-            $table .= '<tr>
+        while ($row = mysqli_fetch_assoc($dispatch_result)) {
+            $dispatch_table .= '<tr>
                         <td>' . htmlspecialchars($row['harvest_type']) . '</td>
                         <td>' . htmlspecialchars($row['silo_location']) . '</td>
-                        <td>' . htmlspecialchars($row['quantity']) . '</td>
+                        <td>' . htmlspecialchars($row['dispatched_quantity']) . '</td>
                         <td>' . htmlspecialchars($row['recipient']) . '</td>
                         <td>' . htmlspecialchars($row['dispatch_date']) . '</td>
                     </tr>';
         }
-        $table .= '</tbody></table>';
+        $dispatch_table .= '</tbody></table>';
 
-        echo json_encode(["status" => "success", "data" => $table]);
+        // Fetch remaining quantities from storage
+        $remaining_query = "SELECT harvest_type, silo_location, quantity AS remaining_quantity FROM storage";
+        $remaining_result = mysqli_query($con, $remaining_query);
+
+        if (!$remaining_result) {
+            echo json_encode(["status" => "error", "message" => "Failed to fetch remaining quantities."]);
+            exit;
+        }
+
+        // Generate HTML table for remaining quantities
+        $remaining_table = '<table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Harvest Type</th>
+                            <th>Silo Location</th>
+                            <th>Remaining Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        while ($row = mysqli_fetch_assoc($remaining_result)) {
+            $remaining_table .= '<tr>
+                        <td>' . htmlspecialchars($row['harvest_type']) . '</td>
+                        <td>' . htmlspecialchars($row['silo_location']) . '</td>
+                        <td>' . htmlspecialchars($row['remaining_quantity']) . '</td>
+                    </tr>';
+        }
+        $remaining_table .= '</tbody></table>';
+
+        // Combine both tables
+        $combined_tables = '<div><h2>Dispatch Log</h2>' . $dispatch_table . '</div>' .
+                           '<div><h2>Remaining Quantities</h2>' . $remaining_table . '</div>';
+
+        echo json_encode(["status" => "success", "data" => $combined_tables]);
         exit();
-    }
-
-
-     else {
+    } else {
         echo json_encode(["status" => "error", "message" => "Invalid action specified."]);
     }
 }
