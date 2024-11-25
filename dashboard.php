@@ -654,6 +654,33 @@
             dispatchNavLink.addEventListener('click', loadDispatchTable);
         })
 
+        document.getElementById('settingsForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(this);
+
+            fetch('updateuser.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const feedbackDiv = document.getElementById('settingsFeedback');
+                if (data.status === 'success') {
+                    feedbackDiv.textContent = 'Settings updated successfully!';
+                    feedbackDiv.style.color = 'green';
+                } else {
+                    feedbackDiv.textContent = data.message || 'An error occurred.';
+                    feedbackDiv.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                console.error('Error updating settings:', error);
+                const feedbackDiv = document.getElementById('settingsFeedback');
+                feedbackDiv.textContent = 'An error occurred. Please try again.';
+                feedbackDiv.style.color = 'red';
+            });
+        });
 
    
 
