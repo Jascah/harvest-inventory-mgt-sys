@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Dashboard - Harvest Inventory</title>
+</head>
+<body>
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h2>Harvest Inventory</h2>
+            <ul>
+                <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-seedling"></i> Inventory</a></li>
+                <li><a href="#"><i class="fas fa-plus"></i> Add New Harvest</a></li>
+                <li><a href="#"><i class="fas fa-warehouse"></i> Storage Management</a></li>
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Alerts</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Suppliers</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p>Overview of your inventory management</p>
+            </header>
+
+            <!-- Statistics Cards -->
+            <section class="statistics">
+                <div class="card">
+                    <i class="fas fa-boxes"></i>
+                    <h3>Total Items</h3>
+                    <p>150</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-truck-loading"></i>
+                    <h3>Items Sold</h3>
+                    <p>45</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-warehouse"></i>
+                    <h3>Storage Capacity</h3>
+                    <p>80%</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Suppliers</h3>
+                    <p>25</p>
+                </div>
+            </section>
+
+            <!-- Graphs and Reports -->
+            <section class="data-visuals">
+                <div class="chart-container">
+                    <h3>Harvest Trends</h3>
+                    <canvas id="trendChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Storage Utilization</h3>
+                    <canvas id="storageChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Recent Activities -->
+            <section class="recent-activities">
+                <h3>Recent Activities</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> Added 50 kg of Corn to Inventory</li>
+                    <li><i class="fas fa-check"></i> Updated Storage Capacity</li>
+                    <li><i class="fas fa-check"></i> New Supplier: Green Farms</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
+
+
+
+
+
+

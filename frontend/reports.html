@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Reports</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="add-harvest.html">Add New Harvest</a>
+        <a href="storage.html">Storage Management</a>
+        <a href="reports.html">Reports</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="logout.html">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Reports</h1>
+        <select id="reportType">
+            <option value="monthly">Monthly Report</option>
+            <option value="yearly">Yearly Report</option>
+        </select>
+        <button id="generateReport">Generate Report</button>
+        <div id="reportOutput">
+            <!-- Placeholder for report output -->
+            <p>Report Output (Placeholder)</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+

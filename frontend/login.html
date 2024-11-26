@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Welcome Back</h2>
+            <p>Please sign in to your account</p>
+            <form action="your_login_endpoint_here" method="POST">
+                <label for="Username">Username</label>
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                 <input type="username" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <label for="password">Password</label>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember Me</label>
+                </div>
+                
+                <button type="submit" class="login-btn">Log In</button>
+                
+                <div class="additional-options">
+                    <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                </div>
+            </form>
+            <p class="signup-link">Don’t have an account? <a href="signup.html">Sign up</a></p>
+            <p><a href="welcome.html">Back to Welcome Page</a></p>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>

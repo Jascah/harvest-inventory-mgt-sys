@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Inventory</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="add-harvest.html">Add New Harvest</a>
+        <a href="storage.html">Storage Management</a>
+        <a href="reports.html">Reports</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="logout.html">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Inventory</h1>
+        <input type="text" placeholder="Search..." id="search">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="inventoryList">
+                <!-- Dynamic Inventory Items -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

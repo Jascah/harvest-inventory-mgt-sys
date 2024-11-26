@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Add New Harvest Item</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="add_harvest.html">Add New Harvest</a>
+        <a href="storage.html">Storage Management</a>
+        <a href="reports.html">Reports</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="logout.html">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Add New Harvest Item</h1>
+        <form id="addHarvestForm">
+            <input type="text" placeholder="Harvest Item Name" required>
+            <input type="number" placeholder="Quantity" required>
+            <input type="date" required>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
